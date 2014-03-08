@@ -1,0 +1,5 @@
+Word Up, 250
+Word Up, 200
+Word Up, 150
+Word Up, 100
+Word Up, 50

@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,15 +28,14 @@ public class GUI
     public  static JButton submit, nextRound, scores;
     private static JPanel buttonsPanel, northernPanel, northernLettersPanel, northernTextPanel, southernTextPanel, centralPanel;
 
-    public GUI()
-    {
+    public GUI() {
 	makeFrame();
     }
 
-    public void makeFrame()
-    {
+    public void makeFrame() {
+
 	frame = new JFrame("Word Up");
-	frame.setLocationRelativeTo(null);
+
 	frame.setMinimumSize(new Dimension(400, 200));
 	contentPane = frame.getContentPane();
 
@@ -135,6 +135,7 @@ public class GUI
 	submit.setEnabled(false);
 
 	frame.pack();
+	frame.setLocationRelativeTo(null);
 	frame.setVisible(true);
     }
 
@@ -192,7 +193,7 @@ public class GUI
 	System.exit(0);
     }
 
-    public static void initialiseRound(){
+    public void initialiseRound(){
 	submit.setEnabled(true);
 	nextRound.setEnabled(false);
 	nextRound.setText("Next Round");
@@ -203,27 +204,79 @@ public class GUI
 	enterText.setText("Please Enter Your Word:");
     }
 
-    public static void setRoundText(final String s){
+    public void setRoundText(final String s){
 	roundText.setText(s);
     }
 
-    public static void setNextRoundText(final String s){
+    public void setNextRoundText(final String s){
 	nextRound.setText(s);
     }
 
-    public static void setLetrersText(final String s){
+    public void setLetrersText(final String s){
 	lettersText.setText(s);
     }
 
-    public static void setLetter1(final String s){
+    public void setLetter1(final String s){
 	Letter1.setText(s);
     }
 
-    public static void setLetter2(final String s){
+    public void setLetter2(final String s){
 	Letter2.setText(s);
     }
 
-    public static void setLetter3(final String s){
+    public void setLetter3(final String s){
 	Letter3.setText(s);
+    }
+
+    public void updatePotentialSolutionsBar(final List<String> answers) {
+	final int a = answers.size();
+	final String[] answersToPrint = new String[5];
+
+	for(int i = 0; i < a && i < 5; i++){
+	    final double z = Math.random();
+	    answersToPrint[i] = answers.get((int)(answers.size()*z));
+	    answers.remove((int)(answers.size()*z));
+	}
+
+	if(a == 1){
+	    GUI.couldveHadText.setText("You Could've Had: " + answersToPrint[0] );
+	}
+	else if(a == 2){
+	    GUI.couldveHadText.setText("You Could've Had: " + answersToPrint[0] + ", " + answersToPrint[1] );
+	}
+	else if(a == 3){
+	    GUI.couldveHadText.setText("You Could've Had: " + answersToPrint[0] + ", " + answersToPrint[1] + ", " + answersToPrint[2] );
+	}
+	else if(a == 4){
+	    GUI.couldveHadText.setText("You Could've Had: " + answersToPrint[0] + ", " + answersToPrint[1] + ", " + answersToPrint[2] + ", " + answersToPrint[3] );
+	}
+	else if(a >= 5){
+	    GUI.couldveHadText.setText("You Could've Had: " + answersToPrint[0] + ", " + answersToPrint[1] + ", " + answersToPrint[2] + ", " + answersToPrint[3] + ", " + answersToPrint[4]);
+	}
+    }
+
+    public void endGame(final int points, final int round) {
+	GUI.nextRound.setEnabled(false);
+	GUI.submit.setEnabled(false);
+	GUI.enterText.setText("");
+	GUI.roundText.setText("Game Complete");
+	GUI.lettersText.setText("");
+	GUI.Letter1.setText("");
+	GUI.Letter2.setText("");
+	GUI.Letter3.setText("");
+	GUI.resultText.setText("");
+	GUI.couldveHadText.setText("");
+	GUI.pointsText.setText("");
+	GUI.wordBox.setText("");
+
+	if(points == 0) {
+	    GUI.lettersText.setText("I'm Sorry. You Scored 0 points. You Need To Word Up!");
+	}
+	else if(points < 10){
+	    GUI.lettersText.setText("Not Bad. You've Finished " + round + " Rounds With a Score Of: "+ points +" Points. Try Again So You Can Word Up");
+	}
+	else {
+	    GUI.lettersText.setText("Congratulations. You've Finished " + round + " Rounds With a Score Of: "+ points +" Points.");
+	}
     }
 }

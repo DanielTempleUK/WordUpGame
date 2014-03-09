@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import utils.GuiUtils;
+
 public class About {
 
     private final JFrame frame = new JFrame("About");;

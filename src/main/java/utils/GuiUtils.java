@@ -12,15 +12,15 @@ public class GuiUtils {
 
     public static BorderLayout newPaddedBorderLayout() {
 	final BorderLayout borderLayout = new BorderLayout();
-	borderLayout.setVgap(10);
-	borderLayout.setHgap(10);
+	borderLayout.setVgap(PADDING);
+	borderLayout.setHgap(PADDING);
 	return borderLayout;
     }
 
     public static GridLayout newPaddedGridLayout(final int rows, final int columns) {
 	final GridLayout gridLayout = new GridLayout(rows, columns);
-	gridLayout.setVgap(10);
-	gridLayout.setHgap(10);
+	gridLayout.setVgap(PADDING);
+	gridLayout.setHgap(PADDING);
 	return gridLayout;
     }
 
